@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="isf-XF-fUD">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="hte-vH-8De">
+            <objects>
+                <viewController id="isf-XF-fUD" customClass="ViewController" customModule="exampleSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jd4-Th-dKS"/>
+                        <viewControllerLayoutGuide type="bottom" id="irS-0w-Ikd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nfw-pA-Vpp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ki-kA-eBL" customClass="PushButtonView" customModule="exampleSwift" customModuleProvider="target">
+                                <rect key="frame" x="137" y="341" width="100" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.70893012150000001" blue="0.74077690969999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="JeU-Jy-FUs"/>
+                                    <constraint firstAttribute="height" constant="100" id="yGd-Iu-Yyq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                        <color key="value" red="0.68825954860000005" green="0.3227539062" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnTouched:" destination="isf-XF-fUD" eventType="touchUpInside" id="kDf-7V-DPS"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qgr-AY-hso" customClass="CounterView" customModule="exampleSwift" customModuleProvider="target">
+                                <rect key="frame" x="72" y="61" width="230" height="230"/>
+                                <color key="backgroundColor" red="1" green="0.27205403649999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="Fw0-9F-JiQ"/>
+                                    <constraint firstAttribute="width" constant="230" id="NNC-0b-ObC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
+                                        <color key="value" red="0.53106011279999998" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
+                                        <color key="value" red="1" green="1" blue="0.86821831599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="counter">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxu-iT-uKS">
+                                <rect key="frame" x="164" y="545" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="subBtnTouched:" destination="isf-XF-fUD" eventType="touchUpInside" id="Xu2-Cs-Taw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0ki-kA-eBL" firstAttribute="top" secondItem="Qgr-AY-hso" secondAttribute="bottom" constant="50" id="boA-Ot-n1o"/>
+                            <constraint firstItem="0ki-kA-eBL" firstAttribute="centerX" secondItem="nfw-pA-Vpp" secondAttribute="centerX" id="eSK-EF-BgO"/>
+                            <constraint firstItem="Qgr-AY-hso" firstAttribute="centerX" secondItem="nfw-pA-Vpp" secondAttribute="centerX" constant="-0.5" id="l0k-KR-2WN"/>
+                            <constraint firstItem="Qgr-AY-hso" firstAttribute="top" secondItem="jd4-Th-dKS" secondAttribute="bottom" constant="41" id="uxB-qU-QUh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vx9-C8-XTA"/>
+                    <connections>
+                        <outlet property="counterView" destination="Qgr-AY-hso" id="UaM-I4-iwN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eBy-qK-7ji" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18" y="65"/>
+        </scene>
+    </scenes>
+</document>
