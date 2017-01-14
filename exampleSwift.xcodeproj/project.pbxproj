@@ -422,7 +422,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hoa-sen.exampleSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -435,7 +435,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hoa-sen.exampleSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -516,6 +516,7 @@
 				8BD89F241E17996B0069A499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BD89F251E17996B0069A499 /* Build configuration list for PBXNativeTarget "exampleSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +525,7 @@
 				8BD89F271E17996B0069A499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BD89F281E17996B0069A499 /* Build configuration list for PBXNativeTarget "exampleSwiftUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +534,7 @@
 				8BD89F2A1E17996B0069A499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
