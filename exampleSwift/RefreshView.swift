@@ -34,7 +34,7 @@ class RefreshView: UIView, UIScrollViewDelegate {
   var delegate: RefreshViewDelegate?
   var scrollView: UIScrollView?
   var refreshing: Bool = false
-  var progress: CGFloat = 0.0
+  var progress: CGFloat = 100.0
   
   var isRefreshing = false
   
@@ -51,10 +51,10 @@ class RefreshView: UIView, UIScrollViewDelegate {
     imgView.frame = bounds
     imgView.contentMode = .ScaleAspectFill
     imgView.clipsToBounds = true
-    addSubview(imgView)
+//    addSubview(imgView)
     
     ovalShapeLayer.strokeColor = UIColor.whiteColor().CGColor
-    ovalShapeLayer.fillColor = UIColor.clearColor().CGColor
+    ovalShapeLayer.fillColor = UIColor.redColor().CGColor
     ovalShapeLayer.lineWidth = 4.0
     ovalShapeLayer.lineDashPattern = [2, 3]
     let refreshRadius = frame.size.height/2 * 0.8
@@ -72,7 +72,7 @@ class RefreshView: UIView, UIScrollViewDelegate {
     airplaneLayer.bounds = CGRect(x: 0.0, y: 0.0, width: airplaneImage.size.width, height: airplaneImage.size.height)
     airplaneLayer.position = CGPoint(x: frame.size.width/2 + frame.size.height/2 * 0.8, y: frame.size.height/2)
     
-    layer.addSublayer(airplaneLayer)
+//    layer.addSublayer(airplaneLayer)
     
     airplaneLayer.opacity = 0.0
   }
@@ -84,9 +84,17 @@ class RefreshView: UIView, UIScrollViewDelegate {
   // MARK: Scroll View Delegate methods
   
   func scrollViewDidScroll(scrollView: UIScrollView) {
-    let offsetY = CGFloat( max(-(scrollView.contentOffset.y + scrollView.contentInset.top), 0.0))
-    self.progress = min(max(offsetY / frame.size.height, 0.0), 1.0)
+//    let offsetY = CGFloat( max(-(scrollView.contentOffset.y + scrollView.contentInset.top), 0.0))
+    let offsetY = -(scrollView.contentOffset.y + scrollView.contentInset.top)
+    print("content offset y: \(scrollView.contentOffset.y)")
+    print("scrollView content inset top: \(scrollView.contentInset.top)")
     
+    print("offsetY: \(offsetY)")
+    print("scrollView frame size height: \(frame.size.height)")
+//    self.progress = min(max(offsetY / frame.size.height, 0.0), 1.0)
+    self.progress = offsetY / frame.size.height
+    print("progress: \(self.progress)")
+    print("-------------------")
     if !isRefreshing {
       redrawFromProgress(self.progress)
     }

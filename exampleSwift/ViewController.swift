@@ -47,6 +47,7 @@ class ViewController: UITableViewController, RefreshViewDelegate {
     let refreshRect = CGRect(x: 0.0, y: -kRefreshViewHeight, width: view.frame.size.width, height: kRefreshViewHeight)
     refreshView = RefreshView(frame: refreshRect, scrollView: self.tableView)
     refreshView.delegate = self
+    refreshView.backgroundColor = UIColor.redColor()
     view.addSubview(refreshView)
   }
   
