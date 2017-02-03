@@ -7,66 +7,96 @@
 //
 
 import LBTAComponents
-
+let twitterBlue = UIColor(red: 61/255, green: 167/255, blue: 244/255, alpha: 1.0)
 class UserFooter: DatasourceCell {
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .orange
+        addSubview(textLabel)
+        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
+    
+    let textLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.text = "Show me more..."
+        textLabel.textColor = twitterBlue
+        textLabel.font = UIFont.systemFont(ofSize: 15)
+        return textLabel
+    }()
+
 }
 
 class UserHeader: DatasourceCell {
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .blue
+        addSubview(textLabel)
+        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
+    
+    let textLabel: UILabel = {
+        let textLabel = UILabel()
+        textLabel.text = "WHO TO FOLLOW"
+        textLabel.font = UIFont.systemFont(ofSize: 16)
+        return textLabel
+    }()
 }
 
 class UserCell: DatasourceCell {
     
     let nameLabel:UILabel = {
         let label = UILabel()
-        label.text = "TEST TEST TEST"
-        label.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        label.text = "Brian Voong"
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        imageView.image = #imageLiteral(resourceName: "avatar")
+        imageView.layer.cornerRadius = 5
+        imageView.clipsToBounds = true
         return imageView
     }()
     
     let usernameLabel: UILabel = {
         let usernameLabel = UILabel()
-        usernameLabel.text = "username"
-        usernameLabel.backgroundColor = .purple
+        usernameLabel.text = "@buildthatapp"
+        usernameLabel.font = UIFont.systemFont(ofSize: 14)
+        usernameLabel.textColor = UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 1.0)
         return usernameLabel
     }()
     
     let bioTextView: UITextView = {
        let biotextview = UITextView()
-        biotextview.text = ""
-        biotextview.backgroundColor = .yellow
+        biotextview.text = "iPhone, iPad, iOS Programming. Joint us to learn Swift, Objective-C and build iOS apps!"
+        biotextview.font = UIFont.systemFont(ofSize: 15)
         return biotextview
     }()
     
     let followButton: UIButton = {
         let followbtn = UIButton()
-        followbtn.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        followbtn.layer.cornerRadius = 5
+        followbtn.clipsToBounds = true
+        followbtn.imageView?.contentMode = .scaleAspectFit
+        followbtn.layer.borderWidth = 1
+        followbtn.setTitle("Follow", for: .normal)
+        followbtn.layer.borderColor = twitterBlue.cgColor
+        followbtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        followbtn.setTitleColor(twitterBlue, for: .normal)
+        followbtn.setImage(#imageLiteral(resourceName: "follow"), for: .normal)
+        followbtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         
         return followbtn
     }()
     
     override func setupViews() {
         super.setupViews()
-        backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         //
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(usernameLabel)
         addSubview(bioTextView)
         addSubview(followButton)
+        //
         profileImageView.anchor(topAnchor,
                                 left: leftAnchor,
                                 bottom: nil,
@@ -95,7 +125,7 @@ class UserCell: DatasourceCell {
                         left: profileImageView.rightAnchor,
                         bottom: nil,
                         right: nameLabel.rightAnchor,
-                        topConstant: 8,
+                        topConstant: 0,
                         leftConstant: 8,
                         bottomConstant: 0,
                         rightConstant: 0,
@@ -107,8 +137,8 @@ class UserCell: DatasourceCell {
                            left: profileImageView.rightAnchor,
                            bottom: nil,
                            right: rightAnchor,
-                           topConstant: 0,
-                           leftConstant: 8,
+                           topConstant: -2,
+                           leftConstant: 4,
                            bottomConstant: 0,
                            rightConstant: 0,
                            widthConstant: 0,
