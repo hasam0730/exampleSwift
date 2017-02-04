@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		531CB7AD50AA66C91C10BEB1 /* Pods_exampleSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93F098A7C6D87F052582C0F /* Pods_exampleSwift.framework */; };
+		8B2B98A41E45FA7F00DF7F1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2B98A31E45FA7F00DF7F1E /* User.swift */; };
 		8BB8E9891E2FC5820068CE89 /* HomeDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8E9881E2FC5820068CE89 /* HomeDatasourceController.swift */; };
 		8BD0CF581E3901F300F4A2A4 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD0CF571E3901F300F4A2A4 /* Cells.swift */; };
 		8BD0CF5A1E39030400F4A2A4 /* HomeDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD0CF591E39030400F4A2A4 /* HomeDatasource.swift */; };
@@ -45,6 +46,7 @@
 		338F10D4D477842709B69D74 /* Pods_exampleSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_exampleSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF90B35ED0E25755FD6159A /* Pods_exampleSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_exampleSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8289E5FA1CD19E2E7BE2B4EC /* Pods-exampleSwiftUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exampleSwiftUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-exampleSwiftUITests/Pods-exampleSwiftUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8B2B98A31E45FA7F00DF7F1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8BB8E9881E2FC5820068CE89 /* HomeDatasourceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDatasourceController.swift; sourceTree = "<group>"; };
 		8BD0CF571E3901F300F4A2A4 /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		8BD0CF591E39030400F4A2A4 /* HomeDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDatasource.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				8BD0CF591E39030400F4A2A4 /* HomeDatasource.swift */,
+				8B2B98A31E45FA7F00DF7F1E /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				8BD0CF5A1E39030400F4A2A4 /* HomeDatasource.swift in Sources */,
 				8BD89EFB1E17996B0069A499 /* AppDelegate.swift in Sources */,
 				8BD0CF581E3901F300F4A2A4 /* Cells.swift in Sources */,
+				8B2B98A41E45FA7F00DF7F1E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

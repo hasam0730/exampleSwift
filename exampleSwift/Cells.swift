@@ -30,6 +30,8 @@ class UserHeader: DatasourceCell {
         super.setupViews()
         addSubview(textLabel)
         textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        separatorLineView.isHidden = false
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
     }
     
     let textLabel: UILabel = {
@@ -42,6 +44,17 @@ class UserHeader: DatasourceCell {
 
 class UserCell: DatasourceCell {
     
+    override var datasourceItem: Any? {
+        didSet {
+            let user = datasourceItem as! User
+            nameLabel.text = user.name
+            usernameLabel.text = user.username
+            bioTextView.text = user.bioText
+            profileImageView.image = user.profileImage
+            
+        }
+    }
+    
     let nameLabel:UILabel = {
         let label = UILabel()
         label.text = "Brian Voong"
@@ -51,7 +64,7 @@ class UserCell: DatasourceCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "avatar")
+        
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
         return imageView
@@ -69,6 +82,7 @@ class UserCell: DatasourceCell {
        let biotextview = UITextView()
         biotextview.text = "iPhone, iPad, iOS Programming. Joint us to learn Swift, Objective-C and build iOS apps!"
         biotextview.font = UIFont.systemFont(ofSize: 15)
+        biotextview.isEditable = false
         return biotextview
     }()
     
@@ -91,6 +105,9 @@ class UserCell: DatasourceCell {
     override func setupViews() {
         super.setupViews()
         //
+        separatorLineView.isHidden = false
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
+        
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(usernameLabel)
@@ -142,7 +159,7 @@ class UserCell: DatasourceCell {
                            bottomConstant: 0,
                            rightConstant: 0,
                            widthConstant: 0,
-                           heightConstant: 100)
+                           heightConstant: 80)
         //
         
         followButton.anchor(topAnchor,
