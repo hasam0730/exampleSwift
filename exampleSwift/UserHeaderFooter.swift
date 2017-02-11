@@ -10,9 +10,32 @@ import LBTAComponents
 class UserFooter: DatasourceCell {
     override func setupViews() {
         super.setupViews()
-        self.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        //
+        let whiteBackgroundView = UIView()
+        whiteBackgroundView.backgroundColor = .white
+        addSubview(whiteBackgroundView)
         addSubview(textLabel)
-        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        whiteBackgroundView.anchor(topAnchor,
+                                   left: leftAnchor,
+                                   bottom: bottomAnchor,
+                                   right: rightAnchor,
+                                   topConstant: 0,
+                                   leftConstant: 0,
+                                   bottomConstant: 15,
+                                   rightConstant: 0,
+                                   widthConstant: 0,
+                                   heightConstant: 0)
+        //
+        textLabel.anchor(topAnchor,
+                         left: leftAnchor,
+                         bottom: bottomAnchor,
+                         right: rightAnchor,
+                         topConstant: 0,
+                         leftConstant: 12,
+                         bottomConstant: 14,
+                         rightConstant: 0,
+                         widthConstant: 0,
+                         heightConstant: 0)
     }
     
     let textLabel: UILabel = {
@@ -20,6 +43,7 @@ class UserFooter: DatasourceCell {
         textLabel.text = "Show me more..."
         textLabel.textColor = twitterBlue
         textLabel.font = UIFont.systemFont(ofSize: 15)
+        
         return textLabel
     }()
 
@@ -28,9 +52,18 @@ class UserFooter: DatasourceCell {
 class UserHeader: DatasourceCell {
     override func setupViews() {
         super.setupViews()
-        self.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        backgroundColor = .white
         addSubview(textLabel)
-        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        textLabel.anchor(topAnchor,
+                         left: leftAnchor,
+                         bottom: bottomAnchor,
+                         right: rightAnchor,
+                         topConstant: 0,
+                         leftConstant: 12,
+                         bottomConstant: 0,
+                         rightConstant: 0,
+                         widthConstant: 0,
+                         heightConstant: 0)
         separatorLineView.isHidden = false
         separatorLineView.backgroundColor = UIColor(r: 255, g: 255, b: 255)
     }

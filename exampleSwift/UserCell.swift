@@ -30,7 +30,7 @@ class UserCell: DatasourceCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        
+        imageView.image = #imageLiteral(resourceName: "raywenderlich")
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
         return imageView
@@ -73,8 +73,6 @@ class UserCell: DatasourceCell {
     
     override func setupViews() {
         super.setupViews()
-//        //
-//        self.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         //
         separatorLineView.isHidden = false
         separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
@@ -84,6 +82,8 @@ class UserCell: DatasourceCell {
         addSubview(usernameLabel)
         addSubview(bioTextView)
         addSubview(followButton)
+        //
+        backgroundColor = .white
         //
         profileImageView.anchor(topAnchor,
                                 left: leftAnchor,

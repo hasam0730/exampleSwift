@@ -24,6 +24,24 @@ extension HomeDatasourceController {
         //
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationController?.navigationBar.isTranslucent = false
+        //
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        // add line to navigationBar (top collection view)
+        let navBarSeperatorView = UIView()
+        navBarSeperatorView.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.addSubview(navBarSeperatorView)
+        navBarSeperatorView.anchor(view.topAnchor,
+                                   left: view.leftAnchor,
+                                   bottom: nil,
+                                   right: view.rightAnchor,
+                                   topConstant: 0,
+                                   leftConstant: 0,
+                                   bottomConstant: 0,
+                                   rightConstant: 0,
+                                   widthConstant: 0,
+                                   heightConstant: 0.5)
+        
     }
     //
     private func setupLeftNavItem() {
