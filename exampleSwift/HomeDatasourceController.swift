@@ -13,11 +13,14 @@ class HomeDatasourceController: DatasourceController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //
         let homeDatasource = HomeDatasource()
         self.datasource = homeDatasource
+        //
+        setupNavigationBarItems()
     }
     //
+   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
