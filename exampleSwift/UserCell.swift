@@ -1,46 +1,13 @@
 //
-//  Cells.swift
+//  UserCell.swift
 //  exampleSwift
 //
-//  Created by Developer on 1/25/17.
+//  Created by Developer on 2/11/17.
 //  Copyright © 2017 Developer. All rights reserved.
 //
 
+import UIKit
 import LBTAComponents
-let twitterBlue = UIColor(red: 61/255, green: 167/255, blue: 244/255, alpha: 1.0)
-class UserFooter: DatasourceCell {
-    override func setupViews() {
-        super.setupViews()
-        addSubview(textLabel)
-        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    }
-    
-    let textLabel: UILabel = {
-        let textLabel = UILabel()
-        textLabel.text = "Show me more..."
-        textLabel.textColor = twitterBlue
-        textLabel.font = UIFont.systemFont(ofSize: 15)
-        return textLabel
-    }()
-
-}
-
-class UserHeader: DatasourceCell {
-    override func setupViews() {
-        super.setupViews()
-        addSubview(textLabel)
-        textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        separatorLineView.isHidden = false
-        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
-    }
-    
-    let textLabel: UILabel = {
-        let textLabel = UILabel()
-        textLabel.text = "WHO TO FOLLOW"
-        textLabel.font = UIFont.systemFont(ofSize: 16)
-        return textLabel
-    }()
-}
 
 class UserCell: DatasourceCell {
     
@@ -51,7 +18,6 @@ class UserCell: DatasourceCell {
             usernameLabel.text = user.username
             bioTextView.text = user.bioText
             profileImageView.image = user.profileImage
-            
         }
     }
     
@@ -79,10 +45,13 @@ class UserCell: DatasourceCell {
     }()
     
     let bioTextView: UITextView = {
-       let biotextview = UITextView()
+        let biotextview = UITextView()
         biotextview.text = "iPhone, iPad, iOS Programming. Joint us to learn Swift, Objective-C and build iOS apps!"
         biotextview.font = UIFont.systemFont(ofSize: 15)
+        biotextview.backgroundColor = .clear
+        biotextview.isScrollEnabled = false
         biotextview.isEditable = false
+        biotextview.isSelectable = false
         return biotextview
     }()
     
@@ -104,10 +73,12 @@ class UserCell: DatasourceCell {
     
     override func setupViews() {
         super.setupViews()
+//        //
+//        self.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         //
         separatorLineView.isHidden = false
         separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
-        
+        //
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(usernameLabel)
@@ -139,15 +110,15 @@ class UserCell: DatasourceCell {
         //
         
         usernameLabel.anchor(nameLabel.bottomAnchor,
-                        left: profileImageView.rightAnchor,
-                        bottom: nil,
-                        right: nameLabel.rightAnchor,
-                        topConstant: 0,
-                        leftConstant: 8,
-                        bottomConstant: 0,
-                        rightConstant: 0,
-                        widthConstant: 0,
-                        heightConstant: 20)
+                             left: profileImageView.rightAnchor,
+                             bottom: nil,
+                             right: nameLabel.rightAnchor,
+                             topConstant: 0,
+                             leftConstant: 8,
+                             bottomConstant: 0,
+                             rightConstant: 0,
+                             widthConstant: 0,
+                             heightConstant: 20)
         //
         
         bioTextView.anchor(usernameLabel.bottomAnchor,
@@ -159,7 +130,7 @@ class UserCell: DatasourceCell {
                            bottomConstant: 0,
                            rightConstant: 0,
                            widthConstant: 0,
-                           heightConstant: 80)
+                           heightConstant: 0)
         //
         
         followButton.anchor(topAnchor,
@@ -175,15 +146,3 @@ class UserCell: DatasourceCell {
     }
 }
 
-class MasterCell: DatasourceCell {
-    let nameLabel:UILabel = {
-        let lbl = UILabel()
-        lbl.text = "nguyen trung hieu"
-        return lbl
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-    }
-}
