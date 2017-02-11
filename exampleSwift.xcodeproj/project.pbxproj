@@ -23,6 +23,7 @@
 		8BF445511E4EBB2A00C400F7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF445501E4EBB2A00C400F7 /* Color.swift */; };
 		8BF445531E4EE2A600C400F7 /* HomeDatasourceController+navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF445521E4EE2A600C400F7 /* HomeDatasourceController+navbar.swift */; };
 		8BF445551E4F082400C400F7 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF445541E4F082400C400F7 /* TweetCell.swift */; };
+		8BF445571E4F177300C400F7 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF445561E4F177300C400F7 /* Tweet.swift */; };
 		9FA04D224A904D6A89AF66C3 /* Pods_exampleSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF90B35ED0E25755FD6159A /* Pods_exampleSwiftUITests.framework */; };
 		BE4D973AE9DEE0AB296F5968 /* Pods_exampleSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338F10D4D477842709B69D74 /* Pods_exampleSwiftTests.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		8BF445501E4EBB2A00C400F7 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		8BF445521E4EE2A600C400F7 /* HomeDatasourceController+navbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeDatasourceController+navbar.swift"; sourceTree = "<group>"; };
 		8BF445541E4F082400C400F7 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		8BF445561E4F177300C400F7 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		BF8F16BF645168F75BF9CB34 /* Pods-exampleSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exampleSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-exampleSwift/Pods-exampleSwift.release.xcconfig"; sourceTree = "<group>"; };
 		CD96F0AB2DDD9A427E65D9A0 /* Pods-exampleSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exampleSwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-exampleSwiftTests/Pods-exampleSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D93F098A7C6D87F052582C0F /* Pods_exampleSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_exampleSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 			children = (
 				8BD0CF591E39030400F4A2A4 /* HomeDatasource.swift */,
 				8B2B98A31E45FA7F00DF7F1E /* User.swift */,
+				8BF445561E4F177300C400F7 /* Tweet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				8BF4454D1E4EBAAF00C400F7 /* UserCell.swift in Sources */,
 				8BF3CCA51E2BB2D5006F765A /* HomeController.swift in Sources */,
 				8BB8E9891E2FC5820068CE89 /* HomeDatasourceController.swift in Sources */,
+				8BF445571E4F177300C400F7 /* Tweet.swift in Sources */,
 				8BF445511E4EBB2A00C400F7 /* Color.swift in Sources */,
 				8BF445551E4F082400C400F7 /* TweetCell.swift in Sources */,
 				8BD89F031E17996B0069A499 /* exampleSwift.xcdatamodeld in Sources */,
