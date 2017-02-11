@@ -129,15 +129,51 @@ class TweetCell: DatasourceCell {
                                heightConstant: 20)
         // 7
         addSubview(replyButton)
-        replyButton.anchor(replyButtonContainerView.topAnchor, left: replyButtonContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        replyButton.anchor(replyButtonContainerView.topAnchor,
+                           left: replyButtonContainerView.leftAnchor,
+                           bottom: nil,
+                           right: nil,
+                           topConstant: 0,
+                           leftConstant: 0,
+                           bottomConstant: 0,
+                           rightConstant: 0,
+                           widthConstant: 20,
+                           heightConstant: 20)
         // 8
         addSubview(retweetButton)
-        retweetButton.anchor(retweetButtonContainerView.topAnchor, left: retweetButtonContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        retweetButton.anchor(retweetButtonContainerView.topAnchor,
+                             left: retweetButtonContainerView.leftAnchor,
+                             bottom: nil,
+                             right: nil,
+                             topConstant: 0,
+                             leftConstant: 0,
+                             bottomConstant: 0,
+                             rightConstant: 0,
+                             widthConstant: 20,
+                             heightConstant: 20)
         // 9
         addSubview(likeButton)
-        likeButton.anchor(likeButtonContainerView.topAnchor, left: likeButtonContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        likeButton.anchor(likeButtonContainerView.topAnchor,
+                          left: likeButtonContainerView.leftAnchor,
+                          bottom: nil,
+                          right: nil,
+                          topConstant: 0,
+                          leftConstant: 0,
+                          bottomConstant: 0,
+                          rightConstant: 0,
+                          widthConstant: 20,
+                          heightConstant: 20)
         // 10
         addSubview(directMessButton)
-        directMessButton.anchor(directMessageButtonContainerView.topAnchor, left: directMessageButtonContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        directMessButton.anchor(directMessageButtonContainerView.topAnchor,
+                                left: directMessageButtonContainerView.leftAnchor,
+                                bottom: nil,
+                                right: nil,
+                                topConstant: 0,
+                                leftConstant: 0,
+                                bottomConstant: 0,
+                                rightConstant: 0,
+                                widthConstant: 20,
+                                heightConstant: 20)
     }
 }
