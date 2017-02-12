@@ -59,12 +59,18 @@ class FeedCell: UICollectionViewCell {
         addSubview(profileImageView)
         addSubview(statusTextView)
         addSubview(statusImageView)
+        addSubview(likesCommentLabel)
+        addSubview(dividerLineView)
+        addSubview(likeButton)
         //
         addContraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
         addContraintsWithFormat(format: "H:|-4-[v0]-4-|", views: statusTextView)
         addContraintsWithFormat(format: "H:|[v0]|", views: statusImageView)
+        addContraintsWithFormat(format: "H:|-12-[v0]|", views: likesCommentLabel)
+        addContraintsWithFormat(format: "H:|[v0]|", views: dividerLineView)
+        addContraintsWithFormat(format: "H:|-8-[v0]|", views: likeButton)
         addContraintsWithFormat(format: "V:|-8-[v0]", views: nameLabel)
-        addContraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(30)]-4-[v2]|", views: profileImageView, statusTextView, statusImageView)
+        addContraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1(30)]-4-[v2]-4-[v3(30)]-4-[v4(0.4)]-4-[v5(44)]|", views: profileImageView, statusTextView, statusImageView, likesCommentLabel, dividerLineView, likeButton)
     }
     
     let nameLabel:UILabel = {
@@ -114,6 +120,38 @@ class FeedCell: UICollectionViewCell {
         return imgView
     }()
     
+    let likesCommentLabel: UILabel = {
+        let label = UILabel()
+        //
+        let attributeText = NSMutableAttributedString(string: "488 likes    10.7k comments", attributes: [NSForegroundColorAttributeName: UIColor(red: 155/255, green: 161/255, blue: 171/255, alpha: 1), NSFontAttributeName: UIFont.systemFont(ofSize: 19)])
+        //
+        label.attributedText = attributeText
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
+    let dividerLineView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor.rgb(red: 220, green: 220, blue: 220)
+        return view
+    }()
+    
+    let likeButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("Like", for: .normal)
+        button.setTitleColor(UIColor.rgb(red: 220, green: 200, blue: 200), for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setImage(#imageLiteral(resourceName: "like").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.titleEdgeInsets = UIEdgeInsetsMake(6, 6, 0, 0)
+        return button
+    }()
+    
+}
+
+extension UIColor {
+    class func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    }
 }
 
 extension UIView {
@@ -128,7 +166,6 @@ extension UIView {
                                                       options: NSLayoutFormatOptions(),
                                                       metrics: nil,
                                                       views: viewsDictionary))
-        
     }
 }
 
