@@ -18,34 +18,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 1
-        let postMark = Post()
-        postMark.name = "Mark Zuckerberg"
-        postMark.imgProfile = #imageLiteral(resourceName: "zuckprofile")
-        postMark.statusText = "Contrary to popular belief, Lorem Ipsum is not simply random"
-        postMark.imgStatus = #imageLiteral(resourceName: "gandhi_status")
-        postMark.numLikes = 200
-        postMark.numComment = 1000
-        // 2
-        let postSteve = Post()
-        postSteve.name = "Steve Jobs"
-        postSteve.imgProfile = #imageLiteral(resourceName: "steve_status")
-        postSteve.statusText = "Contrary to popular belief, Lorem Ipsum is not simply random text. \nIt has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. \nRichard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source"
-        postSteve.imgStatus = #imageLiteral(resourceName: "zuckdog")
-        postSteve.numLikes = 400
-        postSteve.numComment = 2000
-        // 2
-        let JohnSteve = Post()
-        JohnSteve.name = "John Steve"
-        JohnSteve.imgProfile = #imageLiteral(resourceName: "steve_status")
-        JohnSteve.statusText = "Contrary to popular belief, Lorem Ipsum is not simply random text. \nIt has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. \nRichard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source"
-        JohnSteve.imgStatus = #imageLiteral(resourceName: "zuckdog")
-        JohnSteve.numLikes = 400
-        JohnSteve.numComment = 2000
-        //
-        posts.append(postMark)
-        posts.append(postSteve)
-        posts.append(JohnSteve)
+        
         
         navigationItem.title = "Facebook Feed"
         
