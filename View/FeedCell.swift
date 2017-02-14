@@ -7,41 +7,77 @@
 //
 
 import UIKit
+import Foundation
 
 class FeedCell: UICollectionViewCell {
     
     var post: Post? {
         didSet {
-            if let nameUser = post?.name, let imageProfile = post?.imgProfile, let statusTxt = post?.statusText, let imageStatus = post?.imgStatus, let numbLikes = post?.numLikes, let numbComments = post?.numComment {
-                //
-                let attributedText = NSMutableAttributedString(string: nameUser, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
-                attributedText.append(NSAttributedString(string: "\nDecember - 18 * San Francisco * ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor(red: 155/255, green: 161/255, blue: 171/255, alpha: 1)]))
-                //
-                let parapraphStyle = NSMutableParagraphStyle()
-                parapraphStyle.lineSpacing = 4
-                //
-                attributedText.addAttribute(NSParagraphStyleAttributeName, value: parapraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
-                //
-                let attachment = NSTextAttachment()
-                attachment.image = #imageLiteral(resourceName: "globe_small")
-                attachment.bounds = CGRect(x: 0, y: -2, width: 12, height: 12)
-                attributedText.append(NSAttributedString(attachment: attachment))
-                //
-                nameLabel.attributedText = attributedText // set content nameLabel
-                profileImageView.image = imageProfile // set content profileImage
-                statusTextView.text = statusTxt // set content statusText
-                statusImageView.image = imageStatus // set content statusImage
-                //
-                let str = String(format: "%d Likes      %d Comments", numbLikes, numbComments)
-                let attributeText = NSMutableAttributedString(string: str, attributes: [NSForegroundColorAttributeName: UIColor(red: 155/255, green: 161/255, blue: 171/255, alpha: 1), NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
-                likesCommentLabel.attributedText = attributeText
-                //
-            }
+            setupNameLocationStatusAndProfileImage()
+        }
+    }
+    
+    private func setupNameLocationStatusAndProfileImage() {
+        if let name = post?.name {
+            let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+            
+            attributedText.append(NSAttributedString(string: "\nDecember 18 ・ San Francisco ・ ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14),NSForegroundColorAttributeName: UIColor.rgb(red: 155, green: 161, blue: 161)]))
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 4
+            
+            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
+            
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: "globe_small")
+            attachment.bounds = CGRect(x: 0, y: -2, width: 12, height: 12)
+            attributedText.append(NSAttributedString(attachment: attachment))
+            
+            nameLabel.attributedText = attributedText
+        }
+        
+        if let statusText = post?.statusText {
+            statusTextView.text = statusText
+        }
+        
+        profileImageView.image = UIImage(named: "avatar_placeholder")
+        if let profileImagename = post?.profileImageName {
+            profileImageView.image = UIImage(named: profileImagename)
+        }
+        
+        if let statusImageUrl = post?.statusImageUrl {
+            
+            let url = URL(string: statusImageUrl)
+            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    print("George: \(error)")
+                }
+                
+                let image = UIImage(data: data!)
+                
+                // Move to a background thread to do some long running work
+                DispatchQueue.global(qos: .userInitiated).async {
+                    // Bounce back to the main thread to update the UI
+                    DispatchQueue.main.async {
+                        self.statusImageView.image = image
+                        self.loader.stopAnimating()
+                    }
+                }
+                
+            }).resume()
+        }
+        
+        if let numLikes = post?.numLikes, let numComments = post?.numComments {
+            let attributeText = NSMutableAttributedString(string: String(format: "❤️ %d Likes     📃 %d Comments", numLikes, numComments), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.rgb(red: 157, green: 161, blue: 171)])
+            attributeText.append(NSAttributedString(string: "", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18)]))
+            likesCommentsLabel.attributedText = attributeText
         }
     }
     
     override init(frame:CGRect) {
         super.init(frame: frame)
+        setupStatusImageViewLoader()
         setupViews()
         
     }
@@ -57,24 +93,25 @@ class FeedCell: UICollectionViewCell {
         addSubview(profileImageView)
         addSubview(statusTextView)
         addSubview(statusImageView)
-        addSubview(likesCommentLabel)
+        addSubview(likesCommentsLabel)
         addSubview(dividerLineView)
         addSubview(likeButton)
         addSubview(commentButton)
         addSubview(shareButton)
         //
-        addContraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
-        addContraintsWithFormat(format: "H:|-4-[v0]-4-|", views: statusTextView)
-        addContraintsWithFormat(format: "H:|[v0]|", views: statusImageView)
-        addContraintsWithFormat(format: "H:|-12-[v0]|", views: likesCommentLabel)
-        addContraintsWithFormat(format: "H:|[v0]|", views: dividerLineView)
+        addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
+        addConstraintsWithFormat(format: "H:|-2-[v0]-0-|", views: statusTextView)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: statusImageView)
+        addConstraintsWithFormat(format: "H:|-12-[v0]|", views: likesCommentsLabel)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: dividerLineView)
         //
-        addContraintsWithFormat(format: "H:|[v0(v1)][v1(v2)][v2]|", views: likeButton, commentButton, shareButton)
-        addContraintsWithFormat(format: "V:|-8-[v0]", views: nameLabel)
+        addConstraintsWithFormat(format: "H:|[v0(v1)][v1(v2)][v2]|", views: likeButton, commentButton, shareButton)
+        addConstraintsWithFormat(format: "V:|-8-[v0]", views: nameLabel)
         //
-        addContraintsWithFormat(format: "V:|-8-[v0(44)]-4-[v1]-4-[v2(200)]-4-[v3(30)]-4-[v4(0.4)]-4-[v5(44)]|", views: profileImageView, statusTextView, statusImageView, likesCommentLabel, dividerLineView, likeButton)
-        addContraintsWithFormat(format: "V:[v0(44)]|", views: commentButton)
-        addContraintsWithFormat(format: "V:[v0(44)]|", views: shareButton)
+        addConstraintsWithFormat(format: "V:|-8-[v0(44)]-0-[v1]-0-[v2(200)]-4-[v3(30)]-4-[v4(0.4)]-4-[v5(44)]|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel, dividerLineView, likeButton)
+        addConstraintsWithFormat(format: "V:[v0(44)]|", views: commentButton)
+        addConstraintsWithFormat(format: "V:[v0(44)]|", views: shareButton)
+        //
     }
     
     var nameLabel:UILabel = {
@@ -86,13 +123,12 @@ class FeedCell: UICollectionViewCell {
     let profileImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleToFill
-        
         return imgView
     }()
     
     let statusTextView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.isEditable = false
         textView.isSelectable = false
         textView.isScrollEnabled = false
@@ -101,13 +137,12 @@ class FeedCell: UICollectionViewCell {
     
     let statusImageView: UIImageView = {
         let imgView = UIImageView()
-        imgView.image = #imageLiteral(resourceName: "zuckdog")
         imgView.contentMode = .scaleAspectFill
         imgView.layer.masksToBounds = true
         return imgView
     }()
     
-    let likesCommentLabel: UILabel = {
+    let likesCommentsLabel: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -117,6 +152,21 @@ class FeedCell: UICollectionViewCell {
         view.backgroundColor = UIColor.rgb(red: 230, green: 230, blue: 230)
         return view
     }()
+    
+    let loader: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        indicatorView.activityIndicatorViewStyle = .whiteLarge
+        indicatorView.hidesWhenStopped = true
+        return indicatorView
+    }()
+    
+    func setupStatusImageViewLoader() {
+        loader.startAnimating()
+        loader.color = .black
+        statusImageView.addSubview(loader)
+        statusImageView.addConstraintsWithFormat(format: "H:|[v0]|", views: loader)
+        statusImageView.addConstraintsWithFormat(format: "V:|[v0]|", views: loader)
+    }
     
     let likeButton = FeedCell.buttonForTittle(title: "Like", imageName: #imageLiteral(resourceName: "like"))
     
