@@ -11,9 +11,17 @@ import Foundation
 
 class FeedCell: UICollectionViewCell {
     
+    var feedController:FeedController?
+    
     var post: Post? {
         didSet {
             setupNameLocationStatusAndProfileImage()
+        }
+    }
+    
+    func animate() {
+        if let feedCtrl = feedController {
+            feedCtrl.animateImageView(statusImageView: statusImageView)
         }
     }
     
@@ -86,6 +94,8 @@ class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func setupViews() {
         //
         self.backgroundColor = .white
@@ -98,6 +108,8 @@ class FeedCell: UICollectionViewCell {
         addSubview(likeButton)
         addSubview(commentButton)
         addSubview(shareButton)
+        //
+        statusImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
         //
         addConstraintsWithFormat(format: "H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
         addConstraintsWithFormat(format: "H:|-2-[v0]-0-|", views: statusTextView)
@@ -139,6 +151,7 @@ class FeedCell: UICollectionViewCell {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
         imgView.layer.masksToBounds = true
+        imgView.isUserInteractionEnabled = true
         return imgView
     }()
     
