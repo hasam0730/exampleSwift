@@ -26,75 +26,56 @@ class FeedCell: UICollectionViewCell {
     }
     
     private func setupNameLocationStatusAndProfileImage() {
+        // set content label name
         if let name = post?.name {
             let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
-            
-            attributedText.append(NSAttributedString(string: "\nDecember 18 ・ San Francisco ・ ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14),NSForegroundColorAttributeName: UIColor.rgb(red: 155, green: 161, blue: 161)]))
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 4
-            
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
-            
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: "globe_small")
-            attachment.bounds = CGRect(x: 0, y: -2, width: 12, height: 12)
-            attributedText.append(NSAttributedString(attachment: attachment))
-            
+            //
+            if let city = post?.location?.city, let state = post?.location?.state {
+                attributedText.append(NSAttributedString(string: "\n\(city), \(state)  •  ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName:
+                    UIColor.rgb(red: 155, green: 161, blue: 161)]))
+                //
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 4
+                attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
+                //
+                let attachment = NSTextAttachment()
+                attachment.image = UIImage(named: "globe_small")
+                attachment.bounds = CGRect(x: 0, y: -2, width: 12, height: 12)
+                attributedText.append(NSAttributedString(attachment: attachment))
+            }
             nameLabel.attributedText = attributedText
         }
         
+        // set content status text
         if let statusText = post?.statusText {
             statusTextView.text = statusText
         }
         
-        profileImageView.image = UIImage(named: "avatar_placeholder")
+        // set profile image by image name
         if let profileImagename = post?.profileImageName {
             profileImageView.image = UIImage(named: profileImagename)
         }
         
-        if let statusImageUrl = post?.statusImageUrl {
-            
-            let url = URL(string: statusImageUrl)
-            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-                
-                if error != nil {
-                    print("George: \(error)")
-                }
-                
-                let image = UIImage(data: data!)
-                
-                // Move to a background thread to do some long running work
-                DispatchQueue.global(qos: .userInitiated).async {
-                    // Bounce back to the main thread to update the UI
-                    DispatchQueue.main.async {
-                        self.statusImageView.image = image
-                        self.loader.stopAnimating()
-                    }
-                }
-                
-            }).resume()
+        // set status image by image name
+        if let statusImageName = post?.statusImageName {
+            statusImageView.image = UIImage(named: statusImageName)
         }
         
+        // set numblikes and numbcomments
         if let numLikes = post?.numLikes, let numComments = post?.numComments {
-            let attributeText = NSMutableAttributedString(string: String(format: "❤️ %d Likes     📃 %d Comments", numLikes, numComments), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.rgb(red: 157, green: 161, blue: 171)])
-            attributeText.append(NSAttributedString(string: "", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18)]))
-            likesCommentsLabel.attributedText = attributeText
+            likesCommentsLabel.text = "\(numLikes) Likes  \(numComments) Comments"
         }
     }
     
     override init(frame:CGRect) {
         super.init(frame: frame)
-        setupStatusImageViewLoader()
+//        setupStatusImageViewLoader()
         setupViews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     func setupViews() {
         //
@@ -150,6 +131,7 @@ class FeedCell: UICollectionViewCell {
     let statusImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
+        imgView.image = #imageLiteral(resourceName: "zuckdog")
         imgView.layer.masksToBounds = true
         imgView.isUserInteractionEnabled = true
         return imgView

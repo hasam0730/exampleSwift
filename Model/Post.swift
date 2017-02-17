@@ -8,16 +8,42 @@
 
 import UIKit
 //MARK: Model
-class Post {
+class Post: SafeJsonObject {
     var name: String?
     var statusText: String?
     var profileImageName: String?
     var statusImageName: String?
     var numLikes: Int?
     var numComments: Int?
-    
     var statusImageUrl: String?
+    var location: Location?
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        if key == "location" {
+            location = Location()
+            location?.setValuesForKeys(value as! [String: AnyObject])
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
+
+class Location: NSObject {
+    var city: String?
+    var state: String?
+}
+
+class SafeJsonObject: NSObject {
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        let selectorString = "set\(key.uppercased().characters.first!)\(String(key.characters.dropFirst())):"
+        let selector = Selector(selectorString)
+        if responds(to: selector) {
+            super.setValue(value, forKey: key)
+        }
+    }
+}
+
 
 class Posts {
     private var postsList = [Post]()
@@ -85,7 +111,7 @@ class Posts {
         postDonaldTrump.numComments = 22
         postDonaldTrump.statusImageUrl = "https://s3-us-west-2.amazonaws.com/letsbuildthatapp/trump_background.jpg"
         
-        postsList = [postMark, postSteve, postGandhi, postBillGates, postTimCook, postDonaldTrump]
+//        postsList = [postMark, postSteve, postGandhi, postBillGates, postTimCook, postDonaldTrump]
     }
     
     func numberOfPosts() -> Int {
@@ -98,3 +124,4 @@ class Posts {
         }
     }
 }
+

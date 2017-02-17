@@ -10,12 +10,30 @@ import UIKit
 import Foundation
 
 let cellId = "cell"
-let posts = Posts()
+var posts = Posts()
 //MARK: Controller
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+    var posts = [Post]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        //
+        if let path = Bundle.main.path(forResource: "all_posts", ofType: "json") {
+            do {
+                let data = try(Data(contentsOf: URL(fileURLWithPath: path), options: NSData.ReadingOptions.mappedIfSafe))
+                let jsonDictionary = try(JSONSerialization.jsonObject(with: data, options: .mutableContainers)) as? [String: Any]
+                if let postsArray = jsonDictionary?["posts"] as? [[String: AnyObject]] {
+                    //
+                    self.posts = [Post]()
+                    for postDictionary in postsArray {
+                        let post = Post()
+                        post.setValuesForKeys(postDictionary)
+                        self.posts.append(post)
+                    }
+                }
+            } catch let error {
+                print(error)
+            }
+        }
         //
         let memoryCapacity = 500 * 1024 * 1024
         let diskCapacity = 500 * 1024 * 1024
@@ -36,18 +54,18 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.numberOfPosts()
+        return self.posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FeedCell
-        feedCell.post = posts[indexPath as NSIndexPath]
+        feedCell.post = posts[indexPath.item]
         feedCell.feedController = self
         return feedCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let statusText = posts[indexPath as NSIndexPath].statusText {
+        if let statusText = posts[indexPath.item].statusText {
             let rect = NSString(string: statusText).boundingRect(with: CGSize(width: view.frame.width, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
             let knowHeight: CGFloat = 8 + 44 + 4 + 4 + 200 + 8 + 24 + 8 + 44
             
@@ -130,6 +148,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
             })
         }
     }
+
 }
 
 
