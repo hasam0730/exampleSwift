@@ -8,6 +8,10 @@
 
 import UIKit
 let cellId = "cellId"
+let loginCellId = "loginCellId"
+var pageControlBottomAnchor: NSLayoutConstraint?
+var skipControlTopAnchor: NSLayoutConstraint?
+var nextControlTopAnchor: NSLayoutConstraint?
 class ViewController: UIViewController {
     // MARK: ----------------------define control
     // 1.
@@ -23,12 +27,12 @@ class ViewController: UIViewController {
         return cv
     }()
     // 2.
-    let pageControl: UIPageControl = {
+    lazy var pageControl: UIPageControl = {
         let pagecontrol = UIPageControl()
         pagecontrol.pageIndicatorTintColor = UIColor.lightGray
         pagecontrol.currentPageIndicatorTintColor = UIColor.rbg(red: 247, green: 154, blue: 27)
         
-        pagecontrol.numberOfPages = 3
+        pagecontrol.numberOfPages = self.pages.count + 1
         return pagecontrol
     }()
     // 3.
@@ -54,30 +58,38 @@ class ViewController: UIViewController {
         return [firstPage, secondPage, thirdPage]
     }()
     
+    // MARK: ----------------------define self.method
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.setupViews()
+        self.registerCell()
         
     }
     
-    func setupViews() {
+    fileprivate func setupViews() {
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         view.addSubview(skipButton)
         view.addSubview(nextButton)
         //
-        collectionView.anchorToTop(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
         
-        _ = pageControl.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 30)
+        pageControlBottomAnchor = pageControl.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)?[1]
         
-        _ = skipButton.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)
+        skipControlTopAnchor = skipButton.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)?.first
         
-        _ = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)
+        nextControlTopAnchor = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)?.first
         
     }
-
+    
+    fileprivate func registerCell() {
+        collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: loginCellId)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -87,19 +99,42 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
+        return pages.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.item == self.pages.count {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? PageCell
-        let page = pages[indexPath.item]
+        let page = pages[indexPath.row]
         cell?.page = page
         return cell!
     }
 }
 
 extension ViewController: UICollectionViewDelegate {
-    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
+        pageControl.currentPage = pageNumber
+        if pageNumber == self.pages.count {
+            pageControlBottomAnchor?.constant = 40
+            skipControlTopAnchor?.constant = -40
+            nextControlTopAnchor?.constant = -40
+        } else {
+            pageControlBottomAnchor?.constant = 0
+            skipControlTopAnchor?.constant = 16
+            nextControlTopAnchor?.constant = 16
+        }
+//        UIView.animate(withDuration: 0.9, animations: {
+//            self.view.layoutIfNeeded()
+//        })
+        
+        UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
@@ -107,31 +142,5 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
 
-}
-
-extension UIView {
-    func anchorToTop(top:NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil) {
-        anchorWithConstantsToTop(top: top, left: left, bottom: bottom, right: right, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
-    }
-    
-    func anchorWithConstantsToTop(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant:CGFloat = 0) {
-        translatesAutoresizingMaskIntoConstraints = false
-        // top
-        if let top = top {
-            topAnchor.constraint(equalTo: top, constant: topConstant).isActive = true
-        }
-        // bottom
-        if let bottom = bottom {
-            bottomAnchor.constraint(equalTo: bottom, constant: bottomConstant).isActive = true
-        }
-        // left
-        if let left = left {
-            leftAnchor.constraint(equalTo: left, constant: leftConstant).isActive = true
-        }
-        // right
-        if let right = right {
-            rightAnchor.constraint(equalTo: right, constant: -rightConstant).isActive = true
-        }
-    }
 }
 
