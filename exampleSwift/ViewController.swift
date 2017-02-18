@@ -9,7 +9,8 @@
 import UIKit
 let cellId = "cellId"
 class ViewController: UIViewController {
-
+    // MARK: ----------------------define control
+    // 1.
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -21,7 +22,31 @@ class ViewController: UIViewController {
         cv.isPagingEnabled = true
         return cv
     }()
+    // 2.
+    let pageControl: UIPageControl = {
+        let pagecontrol = UIPageControl()
+        pagecontrol.pageIndicatorTintColor = UIColor.lightGray
+        pagecontrol.currentPageIndicatorTintColor = UIColor.rbg(red: 247, green: 154, blue: 27)
+        
+        pagecontrol.numberOfPages = 3
+        return pagecontrol
+    }()
+    // 3.
+    let skipButton: UIButton = {
+        let skipBtn = UIButton(type: .system)
+        skipBtn.setTitle("Skip", for: .normal)
+        skipBtn.setTitleColor(UIColor.rbg(red: 247, green: 154, blue: 27), for: .normal)
+        return skipBtn
+    }()
+    // 4.
+    let nextButton: UIButton = {
+        let nextBtn = UIButton(type: .system)
+        nextBtn.setTitle("Next", for: .normal)
+        nextBtn.setTitleColor(UIColor.rbg(red: 247, green: 154, blue: 27), for: .normal)
+        return nextBtn
+    }()
     
+    // MARK: ----------------------define data
     let pages:[Page] = {
         let firstPage = Page(title: "Share a great listen", message: "It's free to send your books to the people in your life. Every recipient's first book is on us", imageName: "page1")
         let secondPage = Page(title: "Send from your library", message: "Tap the More menu next to any book. Choose \"Send this book\"", imageName: "page2")
@@ -32,10 +57,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.setupViews()
+        
+    }
+    
+    func setupViews() {
         view.addSubview(collectionView)
+        view.addSubview(pageControl)
+        view.addSubview(skipButton)
+        view.addSubview(nextButton)
+        //
         collectionView.anchorToTop(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
-//        collectionView.alwaysBounceVertical = true
+        
+        _ = pageControl.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 30)
+        
+        _ = skipButton.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)
+        
+        _ = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)
+        
     }
 
     override func didReceiveMemoryWarning() {
