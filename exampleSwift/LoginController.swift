@@ -12,7 +12,8 @@ let loginCellId = "loginCellId"
 var pageControlBottomAnchor: NSLayoutConstraint?
 var skipControlTopAnchor: NSLayoutConstraint?
 var nextControlTopAnchor: NSLayoutConstraint?
-class ViewController: UIViewController {
+
+class LoginController: UIViewController {
     // MARK: ----------------------define control
     // 1.
     lazy var collectionView:UICollectionView = {
@@ -165,7 +166,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension LoginController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pages.count + 1
     }
@@ -182,7 +183,7 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
+extension LoginController: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
         print(targetContentOffset.pointee.x)
@@ -201,7 +202,7 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension LoginController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
