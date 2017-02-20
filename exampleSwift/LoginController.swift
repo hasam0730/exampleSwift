@@ -7,11 +7,16 @@
 //
 
 import UIKit
+
 let cellId = "cellId"
 let loginCellId = "loginCellId"
 var pageControlBottomAnchor: NSLayoutConstraint?
 var skipControlTopAnchor: NSLayoutConstraint?
 var nextControlTopAnchor: NSLayoutConstraint?
+
+protocol LoginControllerDelegate: class {
+    func finishLoggingIn()
+}
 
 class LoginController: UIViewController {
     // MARK: ----------------------define control
@@ -80,9 +85,6 @@ class LoginController: UIViewController {
     }
     
     func keyboardShow() {
-//        let yUp = UIDevice.current.orientation.isPortrait ? CGFloat(-65) : CGFloat(-160)
-//        print(UIDevice.current.orientation.isPortrait)
-//        print(yUp)
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.view.frame = CGRect(x: 0, y: -140, width: self.view.frame.width, height: self.view.frame.height)
@@ -173,7 +175,8 @@ extension LoginController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == self.pages.count {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath) as! LoginCell
+            cell.delegate = self
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? PageCell
@@ -205,6 +208,16 @@ extension LoginController: UICollectionViewDelegate {
 extension LoginController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
+    }
+}
+
+extension LoginController: LoginControllerDelegate {
+    func finishLoggingIn() {
+        let rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        guard let mainNavigationController = rootViewController as? MainNavigationController else { return }
+        mainNavigationController.viewControllers = [HomeViewController()]
+        dismiss(animated: true, completion: nil)
+        
     }
 }
 

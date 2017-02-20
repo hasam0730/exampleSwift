@@ -63,13 +63,21 @@ class LoginCell: UICollectionViewCell {
         return txtField
     }()
     
-    let loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
        let button = UIButton(type: .system)
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .orange
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        
         return button
     }()
+    
+    weak var delegate: LoginControllerDelegate?
+    func handleLogin() {
+        delegate?.finishLoggingIn()
+    }
 }
 
 class LeftPaddedTextField: UITextField {
