@@ -68,6 +68,8 @@ class ViewController: UIViewController {
         self.setupViews()
         self.registerCell()
         //
+        self.hideKeyboardWhenTappedAround()
+        //
         observeKeyboardNotification()
     }
     
@@ -77,9 +79,15 @@ class ViewController: UIViewController {
     }
     
     func keyboardShow() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.frame = CGRect(x: 0, y: -65, width: self.view.frame.width, height: self.view.frame.height)
-        }, completion: nil)
+//        let yUp = UIDevice.current.orientation.isPortrait ? CGFloat(-65) : CGFloat(-160)
+//        print(UIDevice.current.orientation.isPortrait)
+//        print(yUp)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.frame = CGRect(x: 0, y: -140, width: self.view.frame.width, height: self.view.frame.height)
+            }, completion: nil)
+        }
+        
     }
     
     func keyboardHide() {
@@ -122,7 +130,7 @@ class ViewController: UIViewController {
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
         
-        pageControlBottomAnchor = pageControl.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)?[1]
+        pageControlBottomAnchor = pageControl.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 35)?[1]
         
         skipControlTopAnchor = skipButton.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)?.first
         
@@ -142,6 +150,18 @@ class ViewController: UIViewController {
         pageControlBottomAnchor?.constant = 40
         skipControlTopAnchor?.constant = -40
         nextControlTopAnchor?.constant = -40
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        
+        let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
+        view.endEditing(true)
+        //scroll to indexPath after the rotation is going
+        DispatchQueue.main.async {
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            self.collectionView.reloadData()
+        }
     }
 }
 

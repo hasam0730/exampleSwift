@@ -30,7 +30,8 @@ class PageCell: UICollectionViewCell {
             //
             attributeText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: length))
             self.textView.attributedText = attributeText
-            self.imageView.image = UIImage(named: page.imageName!)
+            let imgName = UIDevice.current.orientation.isPortrait ? page.imageName : String(format: "%@_landscape", page.imageName!)
+            self.imageView.image = UIImage(named: imgName!)
         }
     }
     
