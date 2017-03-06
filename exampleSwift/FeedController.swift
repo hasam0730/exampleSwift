@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 
 let cellId = "cell"
-var posts = Posts()
 //MARK: Controller
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var posts = [Post]()
